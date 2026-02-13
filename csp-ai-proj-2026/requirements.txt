@@ -1,0 +1,6 @@
+fastapi
+uvicorn
+ortools
+pydantic
+python-multipart
+jinja2

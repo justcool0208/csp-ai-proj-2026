@@ -1,0 +1,450 @@
+:root {
+    --primary: #1b4332;
+    --leaf: #2d6a4f;
+    --moss: #40916c;
+    --mint: #b7e4c7;
+    --nature-white: #f7fee7;
+    --solar: #f59e0b;
+    --grid: #4338ca;
+    --battery: #10b981;
+    --border: #d1fae5;
+    --card-shadow: 0 15px 35px rgba(27, 67, 50, 0.08);
+}
+
+.hidden {
+    display: none !important;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    transition: all 0.2s ease-in-out;
+}
+
+body {
+    background: var(--nature-white);
+    color: var(--primary);
+    font-family: 'Outfit', sans-serif;
+    min-height: 100vh;
+    background-image: linear-gradient(135deg, rgba(209, 250, 229, 0.4) 0%, rgba(247, 254, 231, 0.1) 100%);
+    overflow-x: hidden;
+}
+
+/* Background Leaf SVG Elements */
+.leaf-bg {
+    position: fixed;
+    z-index: -1;
+    opacity: 0.1;
+    pointer-events: none;
+}
+
+.leaf-1 {
+    top: 10%;
+    left: -50px;
+    transform: rotate(45deg);
+    width: 200px;
+}
+
+.leaf-2 {
+    bottom: 5%;
+    right: -50px;
+    transform: rotate(-30deg);
+    width: 250px;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.2rem 5%;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(20px);
+    border-bottom: 2px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-weight: 800;
+    font-size: 1.6rem;
+    letter-spacing: -0.5px;
+}
+
+.logo i {
+    color: var(--leaf);
+    animation: leaf-sway 3s ease-in-out infinite alternate;
+}
+
+@keyframes leaf-sway {
+    from {
+        transform: rotate(-5deg);
+    }
+
+    to {
+        transform: rotate(10deg);
+    }
+}
+
+.nav-links {
+    display: flex;
+    gap: 10px;
+    background: #f0fdf4;
+    padding: 6px;
+    border-radius: 16px;
+    border: 1px solid var(--border);
+}
+
+.nav-btn {
+    background: transparent;
+    color: var(--moss);
+    border: none;
+    padding: 0.7rem 1.4rem;
+    cursor: pointer;
+    border-radius: 12px;
+    font-weight: 700;
+}
+
+.nav-btn.active {
+    background: var(--leaf);
+    color: white;
+    box-shadow: 0 4px 12px rgba(45, 106, 79, 0.2);
+}
+
+main {
+    max-width: 1300px;
+    margin: 3rem auto;
+    padding: 0 2rem;
+}
+
+.section-header {
+    margin-bottom: 3rem;
+}
+
+.section-header h1 {
+    font-size: 3.2rem;
+    font-weight: 900;
+    background: linear-gradient(135deg, var(--primary), var(--moss));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.section-header p {
+    color: var(--moss);
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+
+.grid-layout {
+    display: grid;
+    grid-template-columns: 350px 1fr;
+    gap: 2.5rem;
+}
+
+.card {
+    background: white;
+    border-radius: 32px;
+    padding: 2.5rem;
+    border: 1px solid var(--border);
+    box-shadow: var(--card-shadow);
+    height: fit-content;
+}
+
+.stat-card {
+    background: #fff;
+    padding: 1.5rem;
+    border-radius: 20px;
+    border: 1px solid #f0fdf4;
+    margin-bottom: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    cursor: default;
+}
+
+.stat-card:hover {
+    transform: translateY(-3px);
+    border-color: var(--mint);
+}
+
+.stat-card .label {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--moss);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.stat-card .value {
+    font-size: 2rem;
+    font-weight: 900;
+    color: var(--primary);
+}
+
+.solar-badge {
+    color: var(--solar);
+    background: #fef3c7;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.7rem;
+    font-weight: 800;
+}
+
+.primary-btn {
+    width: 100%;
+    padding: 1.2rem;
+    background: var(--leaf);
+    border: none;
+    border-radius: 18px;
+    color: white;
+    font-weight: 800;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.primary-btn:hover {
+    background: var(--primary);
+    box-shadow: 0 10px 20px rgba(27, 67, 50, 0.15);
+    transform: translateY(-2px);
+}
+
+.secondary-btn {
+    background: #fff;
+    color: #ef4444;
+    border: 2px solid #fee2e2;
+    padding: 0.8rem 1.6rem;
+    border-radius: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.secondary-btn:hover {
+    background: #fef2f2;
+    border-color: #fca5a5;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.1);
+}
+
+.secondary-btn i {
+    width: 18px;
+    height: 18px;
+}
+
+.chart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.legend {
+    display: flex;
+    gap: 1.2rem;
+    flex-wrap: wrap;
+    padding: 12px 20px;
+    background: #f8fafc;
+    border-radius: 16px;
+    border: 1px solid #e2e8f0;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: #64748b;
+}
+
+.circle {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+}
+
+.table-wrapper {
+    border-radius: 24px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    background: white;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 12px;
+}
+
+th {
+    background: #f0fdf4;
+    text-align: left;
+    padding: 1.2rem;
+    color: var(--primary);
+    font-size: 0.85rem;
+    font-weight: 800;
+    border-bottom: 2px solid var(--border);
+}
+
+td {
+    padding: 1.5rem 1.2rem;
+    border-bottom: 1px solid #f0fdf4;
+    font-weight: 500;
+    color: var(--primary);
+}
+
+.priority-pill {
+    padding: 5px 12px;
+    border-radius: 30px;
+    font-size: 0.7rem;
+    font-weight: 800;
+    color: white;
+    text-transform: uppercase;
+}
+
+.prio-5 {
+    background: #ef4444;
+}
+
+.prio-4 {
+    background: #f59e0b;
+}
+
+.prio-3 {
+    background: #10b981;
+}
+
+.prio-2 {
+    background: #3b82f6;
+}
+
+#modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(27, 67, 50, 0.4);
+    backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+}
+
+.modal {
+    background: white;
+    border-radius: 32px;
+    padding: 3rem;
+    width: 500px;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.15);
+    position: relative;
+}
+
+.modal h2 {
+    margin-bottom: 2rem;
+    font-weight: 900;
+    color: var(--primary);
+}
+
+.close-modal {
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--moss);
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    color: var(--moss);
+}
+
+input,
+select {
+    width: 100%;
+    padding: 1rem;
+    border: 2px solid #f1f5f9;
+    border-radius: 14px;
+    background: #f8fafc;
+    outline: none;
+    transition: 0.3s;
+}
+
+input:focus {
+    border-color: var(--moss);
+    background: white;
+}
+
+.suggestion-item {
+    background: #f0fdf4;
+    border-radius: 20px;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    border-left: 4px solid var(--moss);
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.del-btn {
+    color: #fecaca;
+    padding: 8px;
+    border-radius: 10px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    font-size: 1.2rem;
+}
+
+.del-btn:hover {
+    color: #ef4444;
+    background: #fef2f2;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.card {
+    animation: fadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Custom Weather Icons */
+.weather-tag {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 800;
+    font-size: 0.9rem;
+    color: var(--leaf);
+    margin-bottom: 1rem;
+}

@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSP SHEMS | Pro Eco Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+    <!-- Decorative Nature Elements -->
+    <div class="leaf-bg leaf-1"><i data-lucide="leaf" width="200" height="200"></i></div>
+    <div class="leaf-bg leaf-2"><i data-lucide="leaf" width="250" height="250"></i></div>
+
+    <nav>
+        <div class="logo"><i data-lucide="leaf"></i><span>CSP SHEMS</span></div>
+        <div class="nav-links">
+            <button onclick="showSection('dashboard')" class="nav-btn active" id="nav-dashboard">Pulse</button>
+            <button onclick="showSection('inventory')" class="nav-btn" id="nav-inventory">Inventory</button>
+            <button onclick="showSection('advice')" class="nav-btn" id="nav-advice">Advice</button>
+        </div>
+    </nav>
+
+    <main>
+        <!-- DASHBOARD SECTION -->
+        <div id="section-dashboard" class="view-section">
+            <div class="section-header">
+                <h1>Eco-Pulse Dashboard</h1>
+                <p>Intelligent nature-synced energy management. 🌿 <i>Healing the planet, one kilowatt at a time.</i>
+                </p>
+            </div>
+
+            <div class="grid-layout">
+                <section class="card summary-panel">
+                    <div class="weather-tag"><i data-lucide="sun"></i> <span id="weather-label">Sunny Forecast</span>
+                    </div>
+                    <h3>Energy Mix</h3>
+                    <div class="stat-card">
+                        <span class="label">Net Grid Cost</span>
+                        <span class="value" id="res-cost">₹0.00</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="label">Solar Contribution</span>
+                        <span class="value" id="res-solar">0.00 kWh</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="label">Battery Offset</span>
+                        <span class="value" id="res-batt">0.00 kWh</span>
+                    </div>
+                    <button class="primary-btn" id="optimize-btn"><i data-lucide="zap"></i> Optimize Pulse</button>
+                </section>
+
+                <section class="card graph-panel">
+                    <div class="chart-header">
+                        <h3>Power Dynamics</h3>
+                        <div class="legend">
+                            <div class="legend-item"><span class="circle" style="background:var(--grid)"></span> Grid
+                            </div>
+                            <div class="legend-item"><span class="circle" style="background:var(--solar)"></span> Solar
+                            </div>
+                            <div class="legend-item"><span class="circle" style="background:var(--battery)"></span>
+                                Battery</div>
+                            <div class="legend-item"><span class="circle" style="border:1px dashed #64748b"></span>
+                                Demand</div>
+                        </div>
+                    </div>
+                    <div style="height: 350px;"><canvas id="mainChart"></canvas></div>
+                </section>
+            </div>
+
+            <!-- New Timetable Explainability Section -->
+            <div class="card full-width" style="margin-top: 2rem;">
+                <div class="chart-header">
+                    <h3>Eco-Flow Timetable</h3>
+                    <p style="font-size:0.9rem; color:var(--moss)">Understanding the "Why" behind your schedule.</p>
+                </div>
+                <div class="table-wrapper">
+                    <table style="border-spacing: 0 8px;">
+                        <thead>
+                            <tr>
+                                <th>Load</th>
+                                <th>Schedule</th>
+                                <th>Mechanism / Reasoning</th>
+                                <th>Projected Saving</th>
+                                <th>Eco Impact</th>
+                            </tr>
+                        </thead>
+                        <tbody id="timetable-list">
+                            <!-- JS Populated -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- INVENTORY SECTION -->
+        <div id="section-inventory" class="view-section hidden">
+            <div class="section-header">
+                <h1>Device Control</h1>
+                <p>Manage your smart appliances and logic parameters.</p>
+            </div>
+            <div class="card full-width">
+                <div class="chart-header">
+                    <h3>Enabled Controllers</h3>
+                    <div style="display:flex; gap:12px;">
+                        <button class="secondary-btn" onclick="resetDefaults()"
+                            title="Wipe custom list and restore the pro-simulation set.">
+                            <i data-lucide="refresh-cw"></i> Restore Simulation
+                        </button>
+                        <button class="primary-btn" id="add-btn" style="width:auto; padding:0 25px;">+ Add
+                            Device</button>
+                    </div>
+                </div>
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Device Name</th>
+                                <th>Power Load</th>
+                                <th>Running Time</th>
+                                <th>Priority</th>
+                                <th>Window</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="app-list"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- ADVICE SECTION -->
+        <div id="section-advice" class="view-section hidden">
+            <div class="section-header">
+                <h1>Smart Ecology Advice</h1>
+                <p>Optimization logs and future-saving suggestions.</p>
+            </div>
+            <div id="suggestions-container">
+                <!-- JS Populated -->
+            </div>
+        </div>
+    </main>
+
+    <!-- DEVICE MODAL -->
+    <div id="modal-overlay" class="hidden">
+        <div class="modal">
+            <button class="close-modal" id="close-btn">
+                <i data-lucide="x"></i>
+            </button>
+            <h2>Configure Link</h2>
+            <form id="app-form">
+                <div class="form-group"><label>Device Label</label><input type="text" id="in_name"
+                        placeholder="e.g. Living Room AC" required></div>
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px;">
+                    <div class="form-group"><label>Intensity (kW)</label><input type="number" id="in_pwr" step="0.1"
+                            value="1.5"></div>
+                    <div class="form-group"><label>Duration (min)</label><input type="number" id="in_dur" value="60">
+                    </div>
+                </div>
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px;">
+                    <div class="form-group"><label>Earliest Start</label><input type="time" id="in_start" value="08:00">
+                    </div>
+                    <div class="form-group"><label>Latest End</label><input type="time" id="in_end" value="22:00"></div>
+                </div>
+                <div class="form-group">
+                    <label>Priority Tier</label>
+                    <select id="in_prio">
+                        <option value="5">Critical</option>
+                        <option value="4">High Priority</option>
+                        <option value="3" selected>Standard</option>
+                        <option value="2">Low Priority</option>
+                    </select>
+                </div>
+                <div style="display:flex; gap:10px;">
+                    <button type="submit" class="primary-btn" style="margin-top:10px; flex:2;">Bind Device</button>
+                    <button type="button" id="cancel-btn" class="secondary-btn"
+                        style="margin-top:10px; flex:1;">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>lucide.createIcons();</script>
+</body>
+
+</html>
