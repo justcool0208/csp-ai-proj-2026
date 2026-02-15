@@ -111,3 +111,10 @@ By shifting heavy loads like EV charging and washing machines to off-peak hours 
 
 ---
 *Healing the planet, one kilowatt at a time.* 🌿
+
+
+## Video 
+
+https://github.com/user-attachments/assets/54541cfa-8ea3-41bc-afa3-1684925c5b3f
+
+
