@@ -1,65 +1,104 @@
 # Smart Home Energy Management System (SHEMS) 🌿
+*A Constraint Satisfaction Problem (CSP) Approach to Residential Energy Optimization*
 
-A technical implementation of a system designed to optimize household energy consumption through mathematical modeling and discrete optimization. The system harmonizes grid tariffs, solar PV generation, and battery storage to minimize procurement costs and peak demand.
+## 📖 Overview
+This project is a high-precision **Smart Home Energy Management System (SHEMS)** designed to optimize residential energy consumption. It frames appliance scheduling as a **Constraint Satisfaction Problem (CSP)**, solving for the most cost-effective and grid-efficient operational schedule while respecting user-defined temporal and power constraints.
 
-## 🛠 Core Capabilities
-
-- **Mathematical Optimization Engine**: Models energy scheduling as a complex set of constraints to be solved for optimal efficiency.
-- **Dynamic Tariff Awareness**: Integrates Time-of-Use (TOU) pricing structures (Peak, Standard, and Off-Peak) to drive cost-effective scheduling.
-- **Solar & Storage Integration**: Intelligently prioritizes "Free Energy" from solar PV and manages battery state-of-charge for maximum utilization.
-- **Constraint Enforcement**: Strictly adheres to global power limits and user-defined operational windows for individual appliances.
-
-## 🧠 System Architecture
-
-The scheduling engine operates on a 96-step temporal domain (15-minute granularity):
-- **Decision Variables**: Allotment intervals for system loads.
-- **Hard Constraints**: Grid power ceilings, battery energy balance, and mandatory run windows.
-- **Objective Function**: A multi-objective minimization of total cost (₹), peak grid load, and prioritization delays.
-
-## 📂 Project Structure
-
-- `main.py`: Primary application containing the API endpoints and the core optimization solver.
-- `energy_system.db`: Persistent storage for appliance registry and historical system performance.
-- `problem_statement.md`: Technical documentation of the mathematical framework used for scheduling.
-- `static/`:
-    - `index.html`: Main dashboard for constraint configuration and solver execution.
-    - `graph.html`: Visualizer for power dispatch trajectories and energy flow.
-
-## 🚀 Getting Started
-
-1. **Install Prerequisites**:
-   ```bash
-   pip install fastapi uvicorn ortools pydantic
-   ```
-2. **Execute System**:
-   ```bash
-   python main.py
-   ```
-3. **Access Dashboard**:
-   Navigate to `http://localhost:8080` in your browser.
-
-## 🛰 Deployment & Version Control
-
-### GitHub Synchronization
-1. **Initialize & Stage**:
-   ```bash
-   git init
-   git add .
-   ```
-2. **Commit Changes**:
-   ```bash
-   git commit -m "feat: implement high-precision energy scheduling & printable timetable"
-   ```
-3. **Push to Remote**:
-   ```bash
-   git remote add origin <your-repo-url>
-   git push -u origin main
-   ```
-
-### Deployment (Railway/Render/etc.)
-- **Entry Point**: `uvicorn main:app --host 0.0.0.0 --port $PORT`
-- **Dependencies**: The system automatically reads `requirements.txt`.
-- **Environment**: Ensure the environment is Linux/Mac/Windows (compatible across all).
+The system harmonizes three distinct energy vectors:
+1.  **Grid Intake**: Dynamic Time-of-Use (TOU) tariffs (Peak, Standard, Off-Peak).
+2.  **Solar PV Generation**: Real-time "free energy" harvesting.
+3.  **Battery Storage**: Peak-shaving and energy shifting via chemical storage.
 
 ---
-*Built with precision for smart energy management.*
+
+## 🚀 Key Features
+
+### 🧠 Advanced Optimization Engine
+*   **Mathematical Modeling**: Leverages discrete optimization to find the global optimum for energy dispatch.
+*   **Multi-Objective Minimization**:
+    *   **Primary**: Minimize total monetary expenditure (₹).
+    *   **Secondary**: Minimize peak grid demand (kW) to prevent transformer stress.
+    *   **Tertiary**: Stability bias (prioritizing earlier starts for high-priority tasks).
+*   **Interval Logic**: Uses 15-minute granularity (96 steps/day) for high-fidelity scheduling.
+
+### 📊 Professional Analytics Dashboard
+*   **Visual Dispatch Trajectory**: Real-time Chart.js interactive graphs showing Grid, Solar, Battery, and Load interaction.
+*   **Gantt-Style Timetable**: A chronological "Time Table" of every appliance's active window.
+*   **Printable Roadmap**: One-click generation of a physical operational schedule for home use.
+
+### 🏷️ Constraint Framework
+*   **Category-Based Prioritizing**:
+    *   `Critical Mission`: Immovable loads (Server, Fridge).
+    *   `Essential`: High-priority flexible loads (HVAC).
+    *   `Standard`: Regular operative tasks (Washer).
+    *   `Flexible/Deferrable`: Non-urgent loads suited for solar matching.
+
+---
+
+## 🧠 Technical Architecture
+
+### The Solver Logic (Backend)
+The system treats energy management as a **hard-constraint problem**:
+*   **Hard Constraints**: Total power must never exceed the `grid_limit`. Battery SOC must remain within physical bounds. Appliances must finish within their user-defined windows.
+*   **Soft Constraints**: Penalties are applied to schedules that delay critical tasks or rely too heavily on peak-hour grid energy.
+
+### Data Flow
+1.  **Input**: User defines appliance properties (Power, Duration, Window, Category).
+2.  **Processing**: The FastAPI backend transforms these into a mathematical model.
+3.  **Optimization**: The CP-SAT engine iterates through millions of combinations to find the "Cheapest & Smoothest" schedule.
+4.  **Output**: Returns a step-by-step history, summary metrics, and a visual dispatch plan.
+
+---
+
+## 📂 Project Structure
+```bash
+├── main.py                # FastAPI Application & Optimization Engine
+├── energy_system.db       # Persistent SQLite Warehouse
+├── requirements.txt       # System Dependency Manifest
+├── static/
+│   ├── index.html         # Main Mission Control Dashboard
+│   ├── graph.html         # Deep Dispatch Visualizer
+│   ├── script.js          # Reactive UI Logic
+│   ├── graph.js           # Analytics & Charting Engine
+│   └── style.css          # Premium Glassmorphic Design System
+```
+
+---
+
+## 🛠 Installation & Setup
+
+### 1. Environment Preparation
+Ensure you have Python 3.10+ installed.
+```bash
+pip install -r requirements.txt
+```
+
+### 2. Launching the System
+```bash
+python main.py
+```
+*The system will automatically initialize a fresh `energy_system.db` with a standard industrial reference dataset if none exists.*
+
+### 3. Local Access
+Open your browser and navigate to:
+`http://localhost:8080`
+
+---
+
+## 🏙️ Deployment & CI/CD
+
+### Production Entry Point
+For cloud deployment (Railway/Render):
+```bash
+uvicorn main:app --host 0.0.0.0 --port $PORT
+```
+
+### Git Workflow
+```bash
+git add .
+git commit -m "feat: implement high-precision SHEMS with optimized scheduling"
+git push origin main
+```
+
+---
+*Developed with a focus on mathematical precision and sustainable energy engineering.*
