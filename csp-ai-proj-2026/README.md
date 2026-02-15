@@ -1,7 +1,7 @@
 # Smart Home Energy Management System (SHEMS) 🌿
 *A Constraint Satisfaction Problem (CSP) Approach to Residential Energy Optimization*
 
-## 📖 Overview
+## Overview
 This project is a high-precision **Smart Home Energy Management System (SHEMS)** designed to optimize residential energy consumption. It frames appliance scheduling as a **Constraint Satisfaction Problem (CSP)**, solving for the most cost-effective and grid-efficient operational schedule while respecting user-defined temporal and power constraints.
 
 The system harmonizes three distinct energy vectors:
@@ -11,9 +11,9 @@ The system harmonizes three distinct energy vectors:
 
 ---
 
-## 🚀 Key Features
+## Key Features
 
-### 🧠 Advanced Optimization Engine
+### Advanced Optimization Engine
 *   **Mathematical Modeling**: Leverages discrete optimization to find the global optimum for energy dispatch.
 *   **Multi-Objective Minimization**:
     *   **Primary**: Minimize total monetary expenditure (₹).
@@ -21,12 +21,12 @@ The system harmonizes three distinct energy vectors:
     *   **Tertiary**: Stability bias (prioritizing earlier starts for high-priority tasks).
 *   **Interval Logic**: Uses 15-minute granularity (96 steps/day) for high-fidelity scheduling.
 
-### 📊 Professional Analytics Dashboard
+### Professional Analytics Dashboard
 *   **Visual Dispatch Trajectory**: Real-time Chart.js interactive graphs showing Grid, Solar, Battery, and Load interaction.
 *   **Gantt-Style Timetable**: A chronological "Time Table" of every appliance's active window.
 *   **Printable Roadmap**: One-click generation of a physical operational schedule for home use.
 
-### 🏷️ Constraint Framework
+### Constraint Framework
 *   **Category-Based Prioritizing**:
     *   `Critical Mission`: Immovable loads (Server, Fridge).
     *   `Essential`: High-priority flexible loads (HVAC).
@@ -35,7 +35,7 @@ The system harmonizes three distinct energy vectors:
 
 ---
 
-## 🧠 Technical Architecture
+## Technical Architecture
 
 ### The Solver Logic (Backend)
 The system treats energy management as a **hard-constraint problem**:
@@ -50,7 +50,7 @@ The system treats energy management as a **hard-constraint problem**:
 
 ---
 
-## 📂 Project Structure
+## Project Structure
 ```bash
 ├── main.py                # FastAPI Application & Optimization Engine
 ├── energy_system.db       # Persistent SQLite Warehouse
@@ -65,7 +65,7 @@ The system treats energy management as a **hard-constraint problem**:
 
 ---
 
-## 🛠 Installation & Setup
+## Installation & Setup
 
 ### 1. Environment Preparation
 Ensure you have Python 3.10+ installed.
