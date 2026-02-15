@@ -83,15 +83,6 @@ python main.py
 Open your browser and navigate to:
 `http://localhost:8080`
 
----
-
-## 🏙️ Deployment & CI/CD
-
-### Production Entry Point
-For cloud deployment (Railway/Render):
-```bash
-uvicorn main:app --host 0.0.0.0 --port $PORT
-```
 
 ### Git Workflow
 ```bash
