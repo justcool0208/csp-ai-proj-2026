@@ -1,0 +1,454 @@
+:root {
+    --primary: #1b4332;
+    --leaf: #2d6a4f;
+    --moss: #40916c;
+    --mint: #b7e4c7;
+    --nature-white: #f7fee7;
+    --solar: #f59e0b;
+    --grid: #4338ca;
+    --battery: #10b981;
+    --border: #d1fae5;
+    --danger: #ef4444;
+    --card-shadow: 0 20px 40px rgba(27, 67, 50, 0.1);
+    --glass: rgba(255, 255, 255, 0.85);
+}
+
+.hidden {
+    display: none !important;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+body {
+    background: var(--nature-white);
+    color: var(--primary);
+    font-family: 'Outfit', sans-serif;
+    min-height: 100vh;
+    background-image:
+        radial-gradient(at 0% 0%, rgba(209, 250, 229, 0.5) 0, transparent 50%),
+        radial-gradient(at 100% 100%, rgba(247, 254, 231, 1) 0, transparent 50%);
+    overflow-x: hidden;
+}
+
+/* Premium Background Decorations */
+.leaf-bg {
+    position: fixed;
+    z-index: -1;
+    opacity: 0.12;
+    pointer-events: none;
+    filter: blur(1px);
+}
+
+.leaf-1 {
+    top: -50px;
+    left: -50px;
+    transform: rotate(45deg);
+}
+
+.leaf-2 {
+    bottom: -50px;
+    right: -50px;
+    transform: rotate(-30deg);
+}
+
+/* Navigation - Glassmorphism */
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.2rem 8%;
+    background: var(--glass);
+    backdrop-filter: blur(15px);
+    border-bottom: 2px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-weight: 900;
+    font-size: 1.8rem;
+    letter-spacing: -0.5px;
+}
+
+.logo i {
+    color: var(--leaf);
+}
+
+.nav-links {
+    display: flex;
+    gap: 8px;
+    background: rgba(209, 250, 229, 0.4);
+    padding: 6px;
+    border-radius: 18px;
+}
+
+.nav-btn {
+    background: transparent;
+    color: var(--moss);
+    border: none;
+    padding: 0.8rem 1.5rem;
+    cursor: pointer;
+    border-radius: 14px;
+    font-weight: 800;
+    font-size: 0.95rem;
+}
+
+.nav-btn.active {
+    background: var(--leaf);
+    color: white;
+    box-shadow: 0 10px 20px rgba(45, 106, 79, 0.2);
+}
+
+/* Layout */
+main {
+    max-width: 1400px;
+    margin: 3rem auto;
+    padding: 0 3rem;
+}
+
+.section-header {
+    margin-bottom: 3.5rem;
+}
+
+.section-header h1 {
+    font-size: 3.2rem;
+    font-weight: 900;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--moss) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 0.5rem;
+}
+
+.section-header p {
+    color: var(--moss);
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+
+.grid-layout {
+    display: grid;
+    grid-template-columns: 400px 1fr;
+    gap: 2.5rem;
+}
+
+/* Premium Cards */
+.card {
+    background: white;
+    border-radius: 35px;
+    padding: 2.5rem;
+    border: 1px solid var(--border);
+    box-shadow: var(--card-shadow);
+    position: relative;
+    overflow: hidden;
+}
+
+.full-width {
+    grid-column: 1 / -1;
+}
+
+.stat-card {
+    background: white;
+    padding: 1.8rem;
+    border-radius: 25px;
+    border: 1px solid #f0fdf4;
+    margin-bottom: 1.2rem;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.02);
+}
+
+.stat-card .label {
+    display: block;
+    font-size: 0.8rem;
+    font-weight: 800;
+    color: var(--moss);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+}
+
+.stat-card .value {
+    font-size: 2.2rem;
+    font-weight: 900;
+    color: var(--primary);
+}
+
+/* Impact Panel Components */
+.comparison-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.2rem;
+    margin: 1.5rem 0;
+}
+
+.comp-item {
+    padding: 1.5rem;
+    background: #f8fafc;
+    border-radius: 25px;
+    text-align: center;
+    border: 1px solid #f1f5f9;
+}
+
+.comp-item.success {
+    background: #f0fdf4;
+    border-color: var(--mint);
+    color: var(--leaf);
+}
+
+.comp-item .label {
+    font-size: 0.8rem;
+    font-weight: 700;
+    opacity: 0.8;
+    margin-bottom: 8px;
+    display: block;
+}
+
+.comp-item .value {
+    font-size: 1.5rem;
+    font-weight: 900;
+}
+
+.comp-item .value.cross {
+    text-decoration: line-through;
+    opacity: 0.4;
+}
+
+.savings-glow {
+    background: var(--leaf);
+    color: white;
+    padding: 8px 20px;
+    border-radius: 50px;
+    font-weight: 900;
+    font-size: 0.9rem;
+    box-shadow: 0 0 25px rgba(45, 106, 79, 0.25);
+}
+
+/* Premium Tables */
+.table-wrapper {
+    margin-top: 1.5rem;
+    border-radius: 25px;
+    border: 1px solid var(--border);
+    overflow: hidden;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th {
+    background: #f0fdf4;
+    padding: 1.5rem;
+    text-align: left;
+    font-size: 0.85rem;
+    font-weight: 900;
+    color: var(--primary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+td {
+    padding: 1.5rem;
+    border-bottom: 1px solid #f1f5f9;
+    font-size: 1rem;
+    color: var(--primary);
+}
+
+.priority-pill {
+    padding: 6px 14px;
+    border-radius: 50px;
+    font-size: 0.75rem;
+    font-weight: 800;
+    color: white;
+}
+
+/* Buttons */
+.primary-btn {
+    width: 100%;
+    padding: 1.2rem;
+    background: var(--leaf);
+    color: white;
+    border: none;
+    border-radius: 18px;
+    font-weight: 900;
+    font-size: 1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+}
+
+.primary-btn:hover {
+    background: var(--primary);
+    transform: translateY(-3px);
+    box-shadow: 0 15px 30px rgba(27, 67, 50, 0.15);
+}
+
+.secondary-btn {
+    background: white;
+    padding: 0.8rem 1.5rem;
+    border: 2px solid var(--border);
+    border-radius: 16px;
+    font-weight: 800;
+    cursor: pointer;
+    color: var(--moss);
+}
+
+/* Modals */
+#modal-overlay {
+    background: rgba(27, 67, 50, 0.45);
+    backdrop-filter: blur(12px);
+}
+
+.modal {
+    background: white;
+    border-radius: 40px;
+    padding: 3rem;
+    width: 500px;
+    box-shadow: 0 40px 80px rgba(0, 0, 0, 0.15);
+}
+
+/* Visualizer Specific */
+.graph-container {
+    height: 500px;
+    margin-top: 2rem;
+}
+
+.type-btn {
+    padding: 10px 22px;
+    border-radius: 50px;
+    border: 2px solid var(--border);
+    background: white;
+    font-weight: 800;
+    cursor: pointer;
+}
+
+.type-btn.active {
+    background: var(--leaf);
+    color: white;
+    border-color: var(--leaf);
+}
+
+/* Timeline */
+.timeline-wrapper {
+    background: white;
+    padding: 2.5rem;
+    border-radius: 35px;
+    border: 1px solid var(--border);
+    margin-top: 1.5rem;
+}
+
+.timeline-bar {
+    background: linear-gradient(90deg, var(--leaf), var(--moss));
+    border-radius: 10px;
+    box-shadow: 0 10px 20px rgba(45, 106, 79, 0.15);
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.card {
+    animation: fadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.prio-5 {
+    background: #7f1d1d !important;
+}
+
+/* Critical */
+.prio-4 {
+    background: #b45309 !important;
+}
+
+/* High */
+.prio-3 {
+    background: #15803d !important;
+}
+
+/* Standard */
+.prio-2 {
+    background: #1d4ed8 !important;
+}
+
+/* Low */
+.prio-1 {
+    background: #6b7280 !important;
+}
+
+/* Deferrable */
+
+.stat-mini {
+    background: #ffffff;
+    padding: 0.8rem;
+    border-radius: 12px;
+    border: 1px solid #f1f5f9;
+}
+
+@media print {
+
+    nav,
+    .leaf-bg,
+    .summary-panel,
+    .optimization-summary,
+    .timeline-wrapper,
+    .chart-header button,
+    .section-header,
+    #section-inventory,
+    #section-history,
+    .primary-btn,
+    .secondary-btn,
+    .weather-tag {
+        display: none !important;
+    }
+
+    body {
+        background: white !important;
+    }
+
+    main {
+        margin: 0;
+        padding: 0;
+        max-width: 100%;
+    }
+
+    .card {
+        box-shadow: none;
+        border: 1px solid #eee;
+        margin: 0;
+        padding: 1rem;
+        width: 100%;
+    }
+
+    .table-wrapper {
+        border: none;
+    }
+
+    table th {
+        background: #f8fafc !important;
+        color: black !important;
+    }
+
+    .priority-pill {
+        border: 1px solid #ccc;
+        color: black !important;
+        background: transparent !important;
+    }
+}

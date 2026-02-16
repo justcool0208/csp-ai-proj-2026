@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSP SHEMS | System Engineering</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+
+<body>
+    <nav>
+        <div class="logo"><i data-lucide="leaf"></i><span>CSP SHEMS</span></div>
+        <div class="nav-links">
+            <button onclick="location.href='index.html'" class="nav-btn">Back to Dashboard</button>
+        </div>
+    </nav>
+
+    <main>
+        <div class="section-header">
+            <h1>System Logic: Constraint Satisfaction Problem</h1>
+            <p>Mathematical modeling of energy scheduling using the Google CP-SAT solver.</p>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 2rem;">
+            <div class="card full-width">
+                <h2 style="color: var(--leaf); display: flex; align-items: center; gap: 12px; margin-bottom: 1.5rem;">
+                    <i data-lucide="box"></i> Model Formulation
+                </h2>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem;">
+                    <div>
+                        <h4 style="margin-bottom: 10px; color: var(--moss);">1. Temporal Domain</h4>
+                        <p style="font-size: 0.9rem; line-height: 1.6;">The 24-hour cycle is discretized into 96
+                            time-steps (15 minutes each). Decision variables are mapped to these integer steps.</p>
+                    </div>
+                    <div>
+                        <h4 style="margin-bottom: 10px; color: var(--moss);">2. Discrete Interval Variables</h4>
+                        <p style="font-size: 0.9rem; line-height: 1.6;">Appliances are modeled as interval variables
+                            with specific durations, ensuring they cannot be interrupted once started.</p>
+                    </div>
+                    <div>
+                        <h4 style="margin-bottom: 10px; color: var(--moss);">3. Hard System Constraints</h4>
+                        <p style="font-size: 0.9rem; line-height: 1.6;">Global power limits, battery state-of-charge
+                            (SOC) balance, and mandatory appliance windows are strictly enforced.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card full-width">
+                <h2 style="color: var(--leaf); display: flex; align-items: center; gap: 12px; margin-bottom: 1.5rem;">
+                    <i data-lucide="trending-down"></i> Multi-Objective Optimization
+                </h2>
+                <p style="margin-bottom: 1.5rem; line-height: 1.6;">The solver minimizes a weighted objective function
+                    to prioritize cost reduction and grid stability:</p>
+                <div
+                    style="background: var(--nature-white); padding: 2rem; border-radius: 20px; border-left: 5px solid var(--leaf); font-family: monospace; font-weight: 700; color: var(--primary);">
+                    Minimize: (TotalCost * 1,000,000) + (PeakGridLoad * 100) + Sum(WeightedStartTimes)
+                </div>
+                <p style="margin-top: 1.5rem; line-height: 1.6; font-size: 0.95rem;">This formulation ensures that the
+                    system first seeks the absolute lowest tariff cost, then focuses on lowering peak demand, and
+                    finally optimizes for user priority.</p>
+            </div>
+
+            <div class="card full-width">
+                <h2 style="color: var(--leaf); display: flex; align-items: center; gap: 12px; margin-bottom: 1.5rem;">
+                    <i data-lucide="cpu"></i> CP-SAT Engine
+                </h2>
+                <p style="line-height: 1.6;">Unlike heuristic methods, the Google OR-Tools CP-SAT solver uses advanced
+                    SAT-based search techniques to prove optimality. This ensures that the generated schedule is
+                    mathematically the most efficient possible within the provided constraints.</p>
+            </div>
+        </div>
+    </main>
+
+    <script>lucide.createIcons();</script>
+</body>
+
+</html>

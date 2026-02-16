@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSP SHEMS | Dispatch Visualizer</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+    <nav>
+        <div class="logo"><i data-lucide="leaf"></i><span>CSP SHEMS</span></div>
+        <div class="nav-links">
+            <button onclick="location.href='index.html'" class="nav-btn">Back to Dashboard</button>
+        </div>
+    </nav>
+
+    <main>
+        <div class="section-header">
+            <h1 style="font-size: 2.2rem;">Detailed Energy Insights</h1>
+            <p>Analyzing the optimized energy dispatch and storage cycles.</p>
+        </div>
+
+        <div class="card full-width">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 2rem;">
+                <div>
+                    <h3 style="margin-bottom: 10px;">Dispatch Trajectory</h3>
+                    <div class="chart-type-selector" style="display: flex; gap: 8px;">
+                        <button class="type-btn active" onclick="changeChartType('line', this)">Line</button>
+                        <button class="type-btn" onclick="changeChartType('bar', this)">Bar</button>
+                        <button class="type-btn" onclick="changeChartType('radar', this)">Radar</button>
+                    </div>
+                </div>
+                <div style="display: flex; gap: 20px; font-size: 0.8rem; font-weight: 700; color: var(--moss);">
+                    <div style="display: flex; align-items: center; gap: 6px; cursor: pointer;"
+                        onclick="toggleDataset(0, this)">
+                        <div style="width:12px; height:12px; border-radius:3px; background:#4338ca;"></div> Grid
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 6px; cursor: pointer;"
+                        onclick="toggleDataset(1, this)">
+                        <div style="width:12px; height:12px; border-radius:3px; background:#f59e0b;"></div> Solar
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 6px; cursor: pointer;"
+                        onclick="toggleDataset(2, this)">
+                        <div style="width:12px; height:12px; border-radius:3px; background:#10b981;"></div> Battery
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 6px; cursor: pointer;"
+                        onclick="toggleDataset(3, this)">
+                        <div style="width:12px; height:12px; border:2px dashed #1b4332;"></div> Load
+                    </div>
+                </div>
+            </div>
+
+            <div class="graph-container" style="height: 480px;">
+                <canvas id="detailedChart"></canvas>
+            </div>
+        </div>
+
+        <div class="history-grid" style="margin-top: 2rem;">
+            <div class="card" style="padding: 1.5rem;">
+                <h4 style="display: flex; align-items: center; gap: 8px; color: var(--leaf); margin-bottom: 10px;">
+                    <i data-lucide="info" width="18"></i> Grid Strategy
+                </h4>
+                <p style="font-size: 0.85rem; line-height: 1.5; color: var(--moss);">The solver maneuvers around peak
+                    tariff blocks (₹12/kWh), shifting demand to dawn or noon slots to minimize the total bill.</p>
+            </div>
+            <div class="card" style="padding: 1.5rem;">
+                <h4 style="display: flex; align-items: center; gap: 8px; color: var(--leaf); margin-bottom: 10px;">
+                    <i data-lucide="sun" width="18"></i> Solar Harvesting
+                </h4>
+                <p style="font-size: 0.85rem; line-height: 1.5; color: var(--moss);">High-wattage appliances are
+                    clustered during the 10:00 - 15:00 window to ensure zero-cost energy consumption.</p>
+            </div>
+            <div class="card" style="padding: 1.5rem;">
+                <h4 style="display: flex; align-items: center; gap: 8px; color: var(--leaf); margin-bottom: 10px;">
+                    <i data-lucide="battery" width="18"></i> Battery Buffer
+                </h4>
+                <p style="font-size: 0.85rem; line-height: 1.5; color: var(--moss);">Excess solar is stored as chemical
+                    potential and discharged during evening peaks to flatten the grid intake curve.</p>
+            </div>
+        </div>
+
+        <!-- <div class="card full-width" style="margin-top: 3rem;">
+            <div class="chart-header" style="margin-bottom: 2rem;">
+                <h3>Device Scheduling Allotment</h3>
+                <p style="font-size: 0.9rem; color: var(--moss)">Visual timeline and technical reasoning for optimized
+                    load scheduling.</p>
+            </div>
+            <div class="timeline-wrapper">
+                <div id="timeline-container" class="timeline-grid"
+                    style="display: grid; grid-template-columns: 180px 1fr; gap: 10px; min-width: 800px;">
+                    <!-- JS Populated Gantt -->
+        <!-- </div>
+            </div> -->
+
+        <!-- <div class="table-wrapper" style="margin-top: 2rem;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Appliance Unit</th>
+                            <th>Priority Tier</th>
+                            <th>Schedule Window</th>
+                            <th>Solver Reasoning & Logic</th>
+                            <th>Projected Saving</th>
+                        </tr>
+                    </thead>
+                    <tbody id="timetable-list">
+                        <!-- JS Populated -->
+        <!-- </tbody>
+                </table>
+            </div> -->
+        </div>
+    </main>
+
+    <script src="graph.js"></script>
+    <script>lucide.createIcons();</script>
+</body>
+
+</html>
