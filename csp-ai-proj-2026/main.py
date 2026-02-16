@@ -275,38 +275,49 @@ async def optimize(req: OptimizationRequest):
             })
         
         ts_data = []
-        t_cost, t_solar, t_batt_dis, t_batt_chg, peak_load = 0, 0, 0, 0, 0
-        
-        # Calculate totals from time-series for consistency
+        t_cost, t_solar, t_batt_dis, t_batt_chg = 0, 0, 0, 0
+
+        # --- NEW PEAK GRID LOAD LOGIC ---
+        hourly_grid_load = [0.0] * 24
+        for hour in range(24):
+            # For each hour, sum power of appliances that are ON
+            for aid, v in task_vars.items():
+                start_min = solver.Value(v['start']) * 15
+                end_min = solver.Value(v['end']) * 15
+                # If appliance is ON during this hour
+                if start_min <= hour * 60 < end_min:
+                    hourly_grid_load[hour] += v['pwr']
+        peak_grid_hourly = max(hourly_grid_load)
+
+        # --- Time series and other stats (unchanged) ---
+        peak_load = 0
         for t in range(NUM_T):
             g_kW = solver.Value(grid[t]) / 1000.0
             d_kW = solver.Value(discharge[t]) / 1000.0
             c_kW = solver.Value(charge[t]) / 1000.0
             s_kW = solar[t]
-            
-            # Active load at this step
+
             l_kW = sum(v['pwr'] for v in task_vars.values() if solver.Value(v['start']) <= t < solver.Value(v['end']))
-            
+
             if g_kW > peak_load: peak_load = g_kW
-            
+
             step_cost = g_kW * 0.25 * prices[t]
             t_cost += step_cost
             t_solar += min(l_kW, s_kW) * 0.25
             t_batt_dis += d_kW * 0.25
             t_batt_chg += c_kW * 0.25
-            
+
             ts_data.append(TimeStepData(
-                time=f"{t//4:02d}:{(t%4)*15:02d}", 
-                grid=round(g_kW, 2), 
-                solar=round(s_kW, 2), 
-                battery=round(d_kW - c_kW, 2), 
-                load=round(l_kW, 2), 
+                time=f"{t//4:02d}:{(t%4)*15:02d}",
+                grid=round(g_kW, 2),
+                solar=round(s_kW, 2),
+                battery=round(d_kW - c_kW, 2),
+                load=round(l_kW, 2),
                 cost=round(step_cost, 4)
             ))
 
-        # Total demand is the sum of all appliance energy requirements
         total_demand_kWh = sum(v['pwr'] * (v['dur_min'] / 60) for v in task_vars.values())
-        print(total_demand_kWh)
+        # ...existing code...
         total_baseline_cost = sum(item['baseline_cost'] for item in res_sched)
 
         summary = {
@@ -316,15 +327,11 @@ async def optimize(req: OptimizationRequest):
             "total_energy_kWh": round(total_demand_kWh, 2),
             "solar_energy_kWh": round(t_solar, 2),
             "battery_usage_kWh": round(t_batt_dis, 2),
-            "peak_grid_kW": round(peak_load, 2),
+            "peak_grid_kW": round(peak_grid_hourly, 2),
             "savings_percentage": round(((total_baseline_cost - t_cost)/max(1, total_baseline_cost) * 100), 1) if total_baseline_cost > 0 else 0
         }
 
-        print("\n--- OPTIMIZATION SUMMARY ---")
-        for k, v in summary.items():
-            print(f"{k}: {v}")
-        print("----------------------------\n")
-
+        # ...existing code...
 
         # SAVE TO HISTORY
         conn = sqlite3.connect(DB_PATH)
@@ -334,7 +341,7 @@ async def optimize(req: OptimizationRequest):
         conn.commit()
         conn.close()
 
-        return OptimizationResponse(status="Success", schedule=res_sched, summary=summary, time_series=ts_data, 
+        return OptimizationResponse(status="Success", schedule=res_sched, summary=summary, time_series=ts_data,
                                     suggestions=[f"Solar PV handled {round((t_solar/max(0.1, total_demand_kWh))*100)}% of your load.", f"Battery storage deferred {round(t_batt_dis, 2)} kWh to avoid high rates."])
     
     return {"status": "Infeasible", "suggestions": ["Constraint violation. Try relaxing priority or window limits."]}
