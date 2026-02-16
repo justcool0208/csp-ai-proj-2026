@@ -1,0 +1,30 @@
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.env
+.venv
+pip-log.txt
+pip-delete-this-directory.txt
+.tox/
+.coverage
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.log
+.DS_Store
+
+# Databases
+*.db
+*.sqlite3
+
+# Project specific
+api_out.txt
+check_db.py
+test_api.py
+api_test.py
+test_api.py
